@@ -1,0 +1,24 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.jiankn/savepinner",
+  "title": "SavePinner Pinterest URL Tools",
+  "description": "Parse, validate, classify, and normalize Pinterest URLs locally without tracking or network requests.",
+  "websiteUrl": "https://savepinner.com/pinterest-downloader/",
+  "repository": {
+    "url": "https://github.com/jiankn/savepinner-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "savepinner-mcp",
+      "version": "0.1.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

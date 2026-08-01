@@ -1,0 +1,62 @@
+{
+  "name": "savepinner-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for parsing, validating, classifying, and normalizing Pinterest URLs.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "savepinner-mcp": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "server.json"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "prepack": "npm test"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "pinterest",
+    "pinterest-url",
+    "url-parser",
+    "url-normalizer"
+  ],
+  "mcpName": "io.github.jiankn/savepinner",
+  "homepage": "https://savepinner.com/pinterest-downloader/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiankn/savepinner-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jiankn/savepinner-mcp/issues"
+  },
+  "author": "SavePinner contributors",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "pinterest-url-normalizer": "^0.1.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "typescript": "^5.9.3"
+  }
+}
