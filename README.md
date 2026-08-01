@@ -35,6 +35,17 @@ Add the server to an MCP client that supports local `stdio` servers:
 }
 ```
 
+## Docker
+
+Build and run the server as a local stdio container:
+
+```bash
+docker build -t savepinner-mcp .
+docker run --rm -i savepinner-mcp
+```
+
+The runtime image executes as the unprivileged `node` user and does not require secrets, volumes, or network access.
+
 ## Example
 
 Calling `parse_pinterest_url` with:
