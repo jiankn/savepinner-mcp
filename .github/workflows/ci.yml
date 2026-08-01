@@ -20,3 +20,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm pack --dry-run
+      - name: Build container image
+        run: docker build --tag savepinner-mcp:test .
+      - name: Verify unprivileged runtime
+        run: test "$(docker run --rm --entrypoint id savepinner-mcp:test -u)" != "0"
