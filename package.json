@@ -15,14 +15,22 @@
     }
   },
   "files": [
-    "dist",
+    "dist/index.js",
+    "dist/index.js.map",
+    "dist/index.d.ts",
+    "dist/index.d.ts.map",
     "README.md",
     "LICENSE",
     "server.json"
   ],
   "scripts": {
+    "prebuild": "npm run worker:types",
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && node --test test/*.test.mjs",
+    "worker:types": "wrangler types ./src/worker-configuration.d.ts",
+    "worker:dev": "wrangler dev",
+    "worker:deploy": "wrangler deploy",
+    "worker:check": "npm run build && wrangler deploy --dry-run",
     "prepack": "npm test"
   },
   "keywords": [
@@ -56,7 +64,11 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260801.1",
+    "@modelcontextprotocol/server": "^2.0.0",
     "@types/node": "^20.19.43",
-    "typescript": "^5.9.3"
+    "agents": "^0.20.1",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.118.0"
   }
 }

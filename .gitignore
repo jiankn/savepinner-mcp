@@ -3,3 +3,6 @@ dist/
 npm-debug.log*
 *.tgz
 *.mcpb
+.wrangler/
+*.cpuprofile
+src/worker-configuration.d.ts

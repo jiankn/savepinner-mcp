@@ -1,0 +1,135 @@
+import { McpServer } from "@modelcontextprotocol/server";
+import { createMcpHandler } from "agents/mcp/server";
+import {
+  isPinterestUrl,
+  normalizePinterestUrl,
+  parsePinterestUrl,
+} from "pinterest-url-normalizer";
+import * as z from "zod/v4";
+
+const urlInputSchema = z.object({
+  url: z.string().min(1).describe("A complete Pinterest or pin.it URL"),
+});
+
+const toolAnnotations = {
+  readOnlyHint: true,
+  destructiveHint: false,
+  idempotentHint: true,
+  openWorldHint: false,
+};
+
+function toolError(error: unknown) {
+  const message = error instanceof Error ? error.message : "Unknown error";
+
+  return {
+    content: [{ type: "text" as const, text: message }],
+    isError: true,
+  };
+}
+
+export function createSavePinnerWorkerServer(): McpServer {
+  const server = new McpServer({
+    name: "savepinner-mcp",
+    version: "0.1.0",
+  });
+
+  server.registerTool(
+    "parse_pinterest_url",
+    {
+      title: "Parse Pinterest URL",
+      description:
+        "Parse a Pinterest URL and return its kind, canonical URL, host, and type-specific identifiers.",
+      inputSchema: urlInputSchema,
+      outputSchema: z.object({
+        kind: z.enum(["pin", "short", "profile", "board", "ideas"]),
+        originalUrl: z.string().url(),
+        normalizedUrl: z.string().url(),
+        host: z.string(),
+        pinId: z.string().optional(),
+        shortcode: z.string().optional(),
+        username: z.string().optional(),
+        boardSlug: z.string().optional(),
+        ideaSlug: z.string().optional(),
+        ideaId: z.string().optional(),
+      }),
+      annotations: toolAnnotations,
+    },
+    async ({ url }) => {
+      try {
+        const parsed = parsePinterestUrl(url);
+        return {
+          content: [{ type: "text", text: JSON.stringify(parsed, null, 2) }],
+          structuredContent: { ...parsed },
+        };
+      } catch (error) {
+        return toolError(error);
+      }
+    },
+  );
+
+  server.registerTool(
+    "normalize_pinterest_url",
+    {
+      title: "Normalize Pinterest URL",
+      description:
+        "Convert a supported Pinterest URL to its canonical form and remove tracking parameters.",
+      inputSchema: urlInputSchema,
+      outputSchema: z.object({ normalizedUrl: z.string().url() }),
+      annotations: toolAnnotations,
+    },
+    async ({ url }) => {
+      try {
+        const structuredContent = { normalizedUrl: normalizePinterestUrl(url) };
+        return {
+          content: [{ type: "text", text: structuredContent.normalizedUrl }],
+          structuredContent,
+        };
+      } catch (error) {
+        return toolError(error);
+      }
+    },
+  );
+
+  server.registerTool(
+    "is_pinterest_url",
+    {
+      title: "Validate Pinterest URL",
+      description:
+        "Return whether a value is a supported Pinterest URL without making an outbound network request.",
+      inputSchema: urlInputSchema,
+      outputSchema: z.object({ isPinterestUrl: z.boolean() }),
+      annotations: toolAnnotations,
+    },
+    async ({ url }) => {
+      const structuredContent = { isPinterestUrl: isPinterestUrl(url) };
+      return {
+        content: [{ type: "text", text: String(structuredContent.isPinterestUrl) }],
+        structuredContent,
+      };
+    },
+  );
+
+  return server;
+}
+
+const mcpHandler = createMcpHandler(createSavePinnerWorkerServer);
+
+export default {
+  fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/" || url.pathname === "/health") {
+      return Promise.resolve(
+        Response.json({
+          name: "SavePinner Pinterest URL Tools",
+          status: "ok",
+          endpoint: "/mcp",
+          homepage: "https://savepinner.com/pinterest-downloader/",
+          repository: "https://github.com/jiankn/savepinner-mcp",
+        }),
+      );
+    }
+
+    return mcpHandler(request, env, ctx);
+  },
+} satisfies ExportedHandler<Env>;

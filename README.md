@@ -1,6 +1,6 @@
 # SavePinner MCP
 
-An MCP server for parsing, validating, classifying, and normalizing Pinterest URLs. It runs locally, makes no network requests, and does not download media.
+An MCP server for parsing, validating, classifying, and normalizing Pinterest URLs. It supports local stdio and public Streamable HTTP. The tools make no outbound network requests and do not download media.
 
 ## Tools
 
@@ -35,6 +35,16 @@ Add the server to an MCP client that supports local `stdio` servers:
 }
 ```
 
+## Remote MCP
+
+Connect any Streamable HTTP client to the public endpoint:
+
+```text
+https://savepinner-pinterest-url-mcp.chenxuanshimo.workers.dev/mcp
+```
+
+The endpoint is read-only and does not require authentication.
+
 ## Docker
 
 Build and run the server as a local stdio container:
@@ -68,8 +78,8 @@ returns:
 
 ## Privacy and safety
 
-- All processing is local.
-- The server does not make network requests.
+- URL processing is local to the running server.
+- The tools do not make outbound network requests.
 - The server does not download media.
 - Hostnames are checked against an exact Pinterest domain allow list.
 - Lookalike domains and non-HTTPS URLs are rejected.
@@ -85,6 +95,7 @@ Pinterest is a trademark of Pinterest, Inc. This project is independent and is n
 ```bash
 npm install
 npm test
+npm run worker:check
 ```
 
 ## License
