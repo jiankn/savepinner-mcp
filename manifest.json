@@ -1,0 +1,63 @@
+{
+  "manifest_version": "0.3",
+  "name": "savepinner-mcp",
+  "display_name": "SavePinner Pinterest URL Tools",
+  "version": "0.1.0",
+  "description": "Parse, validate, classify, and normalize Pinterest URLs locally without network requests.",
+  "long_description": "A local MCP server for working with Pinterest URLs. It recognizes Pin, pin.it, profile, board, and Ideas URLs across supported country domains, removes tracking parameters, and rejects lookalike hosts. It does not download media, make network requests, or collect analytics.",
+  "author": {
+    "name": "SavePinner contributors",
+    "url": "https://savepinner.com/pinterest-downloader/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jiankn/savepinner-mcp.git"
+  },
+  "homepage": "https://savepinner.com/pinterest-downloader/",
+  "documentation": "https://github.com/jiankn/savepinner-mcp#readme",
+  "support": "https://github.com/jiankn/savepinner-mcp/issues",
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/dist/index.js"
+      ],
+      "env": {}
+    }
+  },
+  "tools": [
+    {
+      "name": "parse_pinterest_url",
+      "description": "Parse a supported Pinterest URL and return its type, canonical URL, host, and identifiers."
+    },
+    {
+      "name": "normalize_pinterest_url",
+      "description": "Normalize a supported Pinterest URL and remove tracking parameters."
+    },
+    {
+      "name": "is_pinterest_url",
+      "description": "Check whether a value is a supported Pinterest URL."
+    }
+  ],
+  "tools_generated": false,
+  "keywords": [
+    "mcp",
+    "pinterest",
+    "url-parser",
+    "url-normalizer",
+    "privacy"
+  ],
+  "license": "MIT",
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=18"
+    }
+  }
+}

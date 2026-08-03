@@ -1,0 +1,10 @@
+.git/
+.github/
+src/
+test/
+.dockerignore
+.gitignore
+Dockerfile
+SECURITY.md
+tsconfig.json
+*.mcpb
