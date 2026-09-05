@@ -198,9 +198,32 @@ function docsResponse(): Response {
   });
 }
 
+function discoveryResponse(pathname: string): Response | undefined {
+  if (pathname === "/robots.txt") {
+    return new Response(
+      `User-agent: *\nAllow: /\nSitemap: https://savepinner-pinterest-url-mcp.chenxuanshimo.workers.dev/sitemap.xml\n`,
+      { headers: { "content-type": "text/plain; charset=utf-8" } },
+    );
+  }
+
+  if (pathname === "/sitemap.xml") {
+    return new Response(
+      `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${docsUrl}</loc>\n    <lastmod>2026-09-05</lastmod>\n  </url>\n</urlset>\n`,
+      { headers: { "content-type": "application/xml; charset=utf-8" } },
+    );
+  }
+
+  return undefined;
+}
+
 export default {
   fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+
+    const discoveryDocument = discoveryResponse(url.pathname);
+    if (discoveryDocument) {
+      return Promise.resolve(discoveryDocument);
+    }
 
     if (url.pathname === "/docs") {
       return Promise.resolve(Response.redirect(docsUrl, 308));

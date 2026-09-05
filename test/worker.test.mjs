@@ -94,6 +94,29 @@ test("redirects the guide path to its canonical trailing-slash URL", async () =>
   );
 });
 
+test("publishes crawl discovery documents for the developer guide", async () => {
+  const [robots, sitemap] = await Promise.all([
+    worker.fetch(
+      new Request("https://savepinner-pinterest-url-mcp.example.workers.dev/robots.txt"),
+      {},
+      executionContext(),
+    ),
+    worker.fetch(
+      new Request("https://savepinner-pinterest-url-mcp.example.workers.dev/sitemap.xml"),
+      {},
+      executionContext(),
+    ),
+  ]);
+
+  assert.equal(robots.status, 200);
+  assert.match(await robots.text(), /Allow: \/\n/);
+  assert.equal(sitemap.status, 200);
+  assert.match(
+    await sitemap.text(),
+    /<loc>https:\/\/savepinner-pinterest-url-mcp\.chenxuanshimo\.workers\.dev\/docs\/<\/loc>/,
+  );
+});
+
 test("initializes and lists the three tools over Streamable HTTP", async () => {
   const initialized = await callMcp({
     jsonrpc: "2.0",
