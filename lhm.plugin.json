@@ -1,0 +1,183 @@
+{
+  "author": "SavePinner contributors",
+  "description": "MCP server for parsing, validating, classifying, and normalizing Pinterest URLs.",
+  "homepage": "https://savepinner.com",
+  "identifier": "jiankn-savepinner-mcp",
+  "name": "savepinner-mcp",
+  "prompts": [],
+  "resources": [],
+  "tags": [
+    "mcp",
+    "model-context-protocol",
+    "pinterest",
+    "pinterest-url",
+    "url-parser",
+    "url-normalizer"
+  ],
+  "tools": [
+    {
+      "name": "parse_pinterest_url",
+      "title": "Parse Pinterest URL",
+      "description": "Parse a Pinterest URL and return its kind, canonical URL, host, and type-specific identifiers.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A complete Pinterest or pin.it URL"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "pin",
+              "short",
+              "profile",
+              "board",
+              "ideas"
+            ]
+          },
+          "originalUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "normalizedUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "host": {
+            "type": "string"
+          },
+          "pinId": {
+            "type": "string"
+          },
+          "shortcode": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "boardSlug": {
+            "type": "string"
+          },
+          "ideaSlug": {
+            "type": "string"
+          },
+          "ideaId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "originalUrl",
+          "normalizedUrl",
+          "host"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "normalize_pinterest_url",
+      "title": "Normalize Pinterest URL",
+      "description": "Convert a supported Pinterest URL to its canonical form and remove tracking parameters.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A complete Pinterest or pin.it URL"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "normalizedUrl": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "normalizedUrl"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    },
+    {
+      "name": "is_pinterest_url",
+      "title": "Validate Pinterest URL",
+      "description": "Return whether a value is a supported Pinterest URL without making a network request.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A complete Pinterest or pin.it URL"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "isPinterestUrl": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "isPinterestUrl"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      },
+      "execution": {
+        "taskSupport": "forbidden"
+      }
+    }
+  ],
+  "version": "0.1.0"
+}
