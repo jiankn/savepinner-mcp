@@ -2,7 +2,7 @@
   "manifest_version": "0.3",
   "name": "savepinner-mcp",
   "display_name": "SavePinner Pinterest URL Tools",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Parse, validate, classify, and normalize Pinterest URLs locally without network requests.",
   "long_description": "A local MCP server for working with Pinterest URLs. It recognizes Pin, pin.it, profile, board, and Ideas URLs across supported country domains, removes tracking parameters, and rejects lookalike hosts. It does not download media, make network requests, or collect analytics.",
   "author": {

@@ -1,6 +1,6 @@
 {
   "name": "savepinner-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MCP server for parsing, validating, classifying, and normalizing Pinterest URLs.",
   "type": "module",
   "main": "./dist/index.js",

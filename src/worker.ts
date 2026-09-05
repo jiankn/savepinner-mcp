@@ -30,7 +30,7 @@ function toolError(error: unknown) {
 export function createSavePinnerWorkerServer(): McpServer {
   const server = new McpServer({
     name: "savepinner-mcp",
-    version: "0.1.0",
+    version: "0.1.1",
   });
 
   server.registerTool(

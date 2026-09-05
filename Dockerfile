@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
+COPY wrangler.jsonc ./
 COPY tsconfig.json ./
 COPY src ./src
 COPY test ./test
