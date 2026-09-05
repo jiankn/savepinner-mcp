@@ -45,6 +45,8 @@ https://savepinner-pinterest-url-mcp.chenxuanshimo.workers.dev/mcp
 
 The endpoint is read-only and does not require authentication.
 
+The public [Pinterest URL validation guide](https://savepinner-pinterest-url-mcp.chenxuanshimo.workers.dev/docs/) explains the validation and normalization boundaries used by the tools.
+
 ## Docker
 
 Build and run the server as a local stdio container:

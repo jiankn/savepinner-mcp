@@ -53,7 +53,45 @@ test("serves public metadata from the Worker root", async () => {
   assert.equal(response.status, 200);
   assert.equal(body.status, "ok");
   assert.equal(body.endpoint, "/mcp");
+  assert.equal(body.docs, "/docs/");
   assert.equal(body.homepage, "https://savepinner.com");
+});
+
+test("serves an indexable developer guide with the campaign link", async () => {
+  const response = await worker.fetch(
+    new Request("https://savepinner-pinterest-url-mcp.example.workers.dev/docs/"),
+    {},
+    executionContext(),
+  );
+  const body = await response.text();
+
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type"), /^text\/html;/);
+  assert.match(body, /<meta name="robots" content="index, follow">/);
+  assert.match(
+    body,
+    /<link rel="canonical" href="https:\/\/savepinner-pinterest-url-mcp\.chenxuanshimo\.workers\.dev\/docs\/">/,
+  );
+  assert.match(
+    body,
+    /<a href="https:\/\/savepinner\.com">Pinterest image downloader<\/a>/,
+  );
+  assert.doesNotMatch(body, /rel="nofollow"/);
+  assert.doesNotMatch(body, /\/pinterest-downloader\//);
+});
+
+test("redirects the guide path to its canonical trailing-slash URL", async () => {
+  const response = await worker.fetch(
+    new Request("https://savepinner-pinterest-url-mcp.example.workers.dev/docs"),
+    {},
+    executionContext(),
+  );
+
+  assert.equal(response.status, 308);
+  assert.equal(
+    response.headers.get("location"),
+    "https://savepinner-pinterest-url-mcp.chenxuanshimo.workers.dev/docs/",
+  );
 });
 
 test("initializes and lists the three tools over Streamable HTTP", async () => {
