@@ -124,7 +124,7 @@ export default {
           name: "SavePinner Pinterest URL Tools",
           status: "ok",
           endpoint: "/mcp",
-          homepage: "https://savepinner.com/pinterest-downloader/",
+          homepage: "https://savepinner.com",
           repository: "https://github.com/jiankn/savepinner-mcp",
         }),
       );

@@ -42,7 +42,7 @@
     "url-normalizer"
   ],
   "mcpName": "io.github.jiankn/savepinner",
-  "homepage": "https://savepinner.com/pinterest-downloader/",
+  "homepage": "https://savepinner.com",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jiankn/savepinner-mcp.git"

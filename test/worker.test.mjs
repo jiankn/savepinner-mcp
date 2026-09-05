@@ -53,7 +53,7 @@ test("serves public metadata from the Worker root", async () => {
   assert.equal(response.status, 200);
   assert.equal(body.status, "ok");
   assert.equal(body.endpoint, "/mcp");
-  assert.equal(body.homepage, "https://savepinner.com/pinterest-downloader/");
+  assert.equal(body.homepage, "https://savepinner.com");
 });
 
 test("initializes and lists the three tools over Streamable HTTP", async () => {

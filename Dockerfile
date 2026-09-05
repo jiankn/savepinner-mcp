@@ -14,7 +14,7 @@ FROM node:24-alpine AS runtime
 
 LABEL org.opencontainers.image.title="SavePinner MCP" \
       org.opencontainers.image.description="Local MCP tools for parsing, validating, and normalizing Pinterest URLs" \
-      org.opencontainers.image.url="https://savepinner.com/pinterest-downloader/" \
+      org.opencontainers.image.url="https://savepinner.com" \
       org.opencontainers.image.source="https://github.com/jiankn/savepinner-mcp" \
       org.opencontainers.image.licenses="MIT"
 

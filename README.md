@@ -86,7 +86,7 @@ returns:
 
 The URL parser is provided by [`pinterest-url-normalizer`](https://www.npmjs.com/package/pinterest-url-normalizer).
 
-This project is maintained by the team behind [SavePinner](https://savepinner.com/pinterest-downloader/), a browser tool for inspecting media exposed by public Pinterest Pin URLs.
+This project is maintained by the team behind the [Pinterest image downloader](https://savepinner.com), a browser tool for inspecting media exposed by public Pinterest Pin URLs.
 
 Pinterest is a trademark of Pinterest, Inc. This project is independent and is not affiliated with or endorsed by Pinterest.
 

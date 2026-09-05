@@ -3,7 +3,7 @@
   "name": "io.github.jiankn/savepinner",
   "title": "SavePinner Pinterest URL Tools",
   "description": "Parse, validate, classify, and normalize Pinterest URLs locally without network requests.",
-  "websiteUrl": "https://savepinner.com/pinterest-downloader/",
+  "websiteUrl": "https://savepinner.com",
   "repository": {
     "url": "https://github.com/jiankn/savepinner-mcp",
     "source": "github"
